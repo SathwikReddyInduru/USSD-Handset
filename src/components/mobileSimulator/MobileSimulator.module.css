@@ -1,0 +1,296 @@
+.page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    background-color: transparent;
+    position: relative;
+    padding: 20px;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s;
+}
+
+.closeBtn:hover {
+    background: #b91c1c;
+    transform: scale(1.1);
+}
+
+.phoneFrame {
+    width: 320px;
+    height: 640px;
+    background-color: #1e293b;
+    border-radius: 45px;
+    padding: 15px;
+    border: 8px solid #0f172a;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.earpiece {
+    width: 50px;
+    height: 4px;
+    background: #334155;
+    border-radius: 10px;
+    margin: 10px auto 25px;
+}
+
+.screen {
+    width: 90%;
+    height: 520px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Dialer View Styles */
+.dialerContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.heading {
+    text-align: center;
+    margin-top: 40px;
+    color: #1e293b;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.dialInput {
+    font-size: 24px;
+    text-align: center;
+    border: none;
+    margin: 20px 0;
+    outline: none;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    flex: 1;
+    align-content: center;
+}
+
+.key {
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 50%;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.key:hover {
+    background: #e2e8f0;
+    transform: scale(1.05);
+}
+
+.key:active {
+    transform: scale(0.95);
+}
+
+.callBtn {
+    padding: 15px;
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.callBtn:hover {
+    background: #15803d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.callBtn:active {
+    transform: translateY(0);
+}
+
+/* USSD View Styles */
+.statusBar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #64748b;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.breadcrumb {
+    font-size: 10px;
+    color: #3dd68c;
+    margin-bottom: 8px;
+    padding: 6px 8px;
+    background: #f0fdf4;
+    border-radius: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ussdContent {
+    flex: 1;
+    font-size: 14px;
+    color: #1e293b;
+    white-space: pre-wrap;
+    border: 1px solid #f1f5f9;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #fafafa;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+}
+
+.ussdContent::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ussdContent::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.ussdContent::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.inputArea {
+    margin-top: 10px;
+    border-top: 2px solid #3dd68c;
+    padding-top: 10px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    font-size: 18px;
+    outline: none;
+    color: #2563eb;
+    font-weight: bold;
+}
+
+.input::placeholder {
+    color: #94a3b8;
+}
+
+.buttonRow {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.sendBtn {
+    flex: 1;
+    padding: 12px;
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.sendBtn:hover {
+    background: #15803d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.sendBtn:active {
+    transform: translateY(0);
+}
+
+.cancelBtn {
+    flex: 1;
+    padding: 12px;
+    background: #dc2626;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.cancelBtn:hover {
+    background: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.cancelBtn:active {
+    transform: translateY(0);
+}
+
+.homeBtn {
+    width: 45px;
+    height: 45px;
+    border: 2px solid #334155;
+    border-radius: 50%;
+    margin: 15px auto 0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.homeBtn:hover {
+    border-color: #3dd68c;
+    transform: scale(1.1);
+}
+
+.homeBtn:active {
+    transform: scale(0.9);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .phoneFrame {
+        width: 280px;
+        height: 560px;
+    }
+
+    .screen {
+        height: 460px;
+    }
+
+    .key {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
