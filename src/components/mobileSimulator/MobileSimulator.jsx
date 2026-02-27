@@ -5,12 +5,12 @@ import styles from './MobileSimulator.module.css'
 const MobileSimulator = () => {
     const [view, setView] = useState("dialer")
     const [screenText, setScreenText] = useState("")
-    const [userInputText, setUserInputText] = useState("")
-    const [userInputOption, setUserInputOption] = useState("")
+    const [userInput, setUserInput] = useState("") // ✅ Single input
     const [msisdn, setMsisdn] = useState("1234567890")
     const [isSessionActive, setIsSessionActive] = useState(false)
     const [pageId, setPageId] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
+    const [isTextMode, setIsTextMode] = useState(false) // ✅ Manual toggle
 
     const handleDial = () => {
         if (msisdn.length < 10) {
@@ -37,13 +37,24 @@ const MobileSimulator = () => {
                     UserInputText: ""
                 }
             }
-            // 🔥 After session starts (navigation)
+            // 🔥 After session starts
             else {
-                payload = {
-                    MSISDN: msisdn,
-                    PageId: pageId,
-                    UserInputOption: userInputOption.trim() || "",
-                    UserInputText: userInputText.trim() || ""
+                if (isTextMode) {
+                    // ✅ Text mode: send as UserInputText
+                    payload = {
+                        MSISDN: msisdn,
+                        PageId: pageId,
+                        UserInputOption: "",
+                        UserInputText: userInput.trim()
+                    }
+                } else {
+                    // ✅ Option mode: send as UserInputOption
+                    payload = {
+                        MSISDN: msisdn,
+                        PageId: pageId,
+                        UserInputOption: userInput.trim(),
+                        UserInputText: ""
+                    }
                 }
             }
 
@@ -66,9 +77,8 @@ const MobileSimulator = () => {
                 }, 3000)
             }
 
-            // Clear inputs after sending
-            setUserInputOption("")
-            setUserInputText("")
+            setUserInput("")
+            setIsTextMode(false) // ✅ Reset to option mode after send
 
         } catch (error) {
             console.error(error)
@@ -80,11 +90,11 @@ const MobileSimulator = () => {
 
     const handleEndCall = () => {
         setIsSessionActive(false)
-        setUserInputOption("")
-        setUserInputText("")
+        setUserInput("")
         setView("dialer")
         setScreenText("")
         setPageId(0)
+        setIsTextMode(false)
     }
 
     const handleKeyPress = (e) => {
@@ -151,27 +161,35 @@ const MobileSimulator = () => {
                             </div>
 
                             <div className={styles.inputArea}>
-                                {/* ✅ Show text input ONLY after session starts */}
+                                {/* ✅ Mode toggle (only show after session starts) */}
                                 {isSessionActive && (
-                                    <input
-                                        className={styles.input}
-                                        value={userInputText}
-                                        onChange={(e) => setUserInputText(e.target.value)}
-                                        placeholder="Enter text (optional)"
-                                        onKeyDown={handleKeyPress}
-                                        disabled={isLoading}
-                                    />
+                                    <div className={styles.modeToggle}>
+                                        <button
+                                            className={`${styles.modeBtn} ${!isTextMode ? styles.activeMode : ''}`}
+                                            onClick={() => setIsTextMode(false)}
+                                        >
+                                            Option
+                                        </button>
+                                        <button
+                                            className={`${styles.modeBtn} ${isTextMode ? styles.activeMode : ''}`}
+                                            onClick={() => setIsTextMode(true)}
+                                        >
+                                            Text
+                                        </button>
+                                    </div>
                                 )}
 
-                                {/* ✅ Option input always visible */}
+                                {/* ✅ Single input field */}
                                 <input
                                     className={styles.input}
-                                    value={userInputOption}
-                                    onChange={(e) => setUserInputOption(e.target.value)}
+                                    value={userInput}
+                                    onChange={(e) => setUserInput(e.target.value)}
                                     placeholder={
                                         !isSessionActive
                                             ? "Dial Shortcode (*123#)"
-                                            : "Enter option..."
+                                            : isTextMode
+                                                ? "Enter text..."
+                                                : "Enter option..."
                                     }
                                     onKeyDown={handleKeyPress}
                                     autoFocus

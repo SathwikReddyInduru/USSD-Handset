@@ -294,3 +294,32 @@
         font-size: 16px;
     }
 }
+
+.modeToggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.modeBtn {
+    flex: 1;
+    padding: 8px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.modeBtn:hover {
+    background: #e2e8f0;
+}
+
+.activeMode {
+    background: #3dd68c !important;
+    color: #0f172a !important;
+    border-color: #3dd68c !important;
+}
