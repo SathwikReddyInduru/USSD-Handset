@@ -5,12 +5,12 @@ import styles from './MobileSimulator.module.css'
 const MobileSimulator = () => {
     const [view, setView] = useState("dialer")
     const [screenText, setScreenText] = useState("")
-    const [userInput, setUserInput] = useState("") // ✅ Single input
+    const [userInput, setUserInput] = useState("")
     const [msisdn, setMsisdn] = useState("1234567890")
     const [isSessionActive, setIsSessionActive] = useState(false)
     const [pageId, setPageId] = useState(0)
     const [isLoading, setIsLoading] = useState(false)
-    const [isTextMode, setIsTextMode] = useState(false) // ✅ Manual toggle
+    const [isTextMode, setIsTextMode] = useState(false)
 
     const handleDial = () => {
         if (msisdn.length < 10) {
@@ -28,7 +28,6 @@ const MobileSimulator = () => {
         try {
             let payload
 
-            // 🔥 Before session starts (shortcode entry)
             if (!isSessionActive) {
                 payload = {
                     MSISDN: msisdn,
@@ -37,10 +36,8 @@ const MobileSimulator = () => {
                     UserInputText: ""
                 }
             }
-            // 🔥 After session starts
             else {
                 if (isTextMode) {
-                    // ✅ Text mode: send as UserInputText
                     payload = {
                         MSISDN: msisdn,
                         PageId: pageId,
@@ -48,7 +45,6 @@ const MobileSimulator = () => {
                         UserInputText: userInput.trim()
                     }
                 } else {
-                    // ✅ Option mode: send as UserInputOption
                     payload = {
                         MSISDN: msisdn,
                         PageId: pageId,
@@ -58,10 +54,10 @@ const MobileSimulator = () => {
                 }
             }
 
-            console.log("Sending:", payload)
+            // console.log("Sending:", payload)
 
             const response = await axios.post(
-                "http://10.10.19.188:6215/api/simulate-ussd",
+                "http://192.168.149.107:6215/api/simulate-ussd",
                 payload
             )
 
@@ -78,7 +74,7 @@ const MobileSimulator = () => {
             }
 
             setUserInput("")
-            setIsTextMode(false) // ✅ Reset to option mode after send
+            setIsTextMode(false)
 
         } catch (error) {
             console.error(error)
@@ -161,7 +157,6 @@ const MobileSimulator = () => {
                             </div>
 
                             <div className={styles.inputArea}>
-                                {/* ✅ Mode toggle (only show after session starts) */}
                                 {isSessionActive && (
                                     <div className={styles.modeToggle}>
                                         <button
@@ -179,7 +174,6 @@ const MobileSimulator = () => {
                                     </div>
                                 )}
 
-                                {/* ✅ Single input field */}
                                 <input
                                     className={styles.input}
                                     value={userInput}
